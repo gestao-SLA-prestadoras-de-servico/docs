@@ -14,9 +14,9 @@ Esse documento contempla a stack tecnológica selecionada dentro de cada uma das
 
 | Tech | Categoria | Justificativa |
 | --- | --- | --- |
-| Spring Boot | Framework principal | Devido o sistema ser corporativo, utilizar uma linguagem como Java que é extremamente robusta torna o ambiente muito mais seguro, assim como esperado de um bom sistema corporativo. Além disso, o Spring traz uma série de bibliotecas prontas para uso, acelerando o desenvolvimento e tornando prático as soluções desenvolvidas com Java. |
-| PostgreSQL | Base de dados | O Postgre permite diversas operações complexas, diferente de outros bancos de dados, possuindo suporte nativo a campos JSONB, o que é extremamente útil para armazenamento de logs complexos e "histórico de atendimentos" de SLAs. |
-| Keycloak | Autenticação | Concentra toda a autenticação em um único ponto, facilitando a verificação de usuário logado e revogação de sessão quando necessário. |
+| Java 21 (LTS) + Spring Boot | Framework principal | Exigência da disciplina e escolha ideal por ser uma plataforma corporativa madura e extremamente robusta, garantindo a segurança esperada para o FlowSLA. O ecossistema Spring acelera o desenvolvimento ao fornecer bibliotecas prontas para uso e suporte nativo integrado para persistência, segurança, mensageria e observabilidade. |
+| PostgreSQL | Base de dados | Banco relacional robusto para os dados transacionais do domínio, garantindo controle de concorrência e integridade referencial. Destaca-se por permitir operações complexas e oferecer suporte nativo a campos JSONB, um recurso estratégico para o armazenamento de logs complexos e do histórico dinâmico de atendimentos dos SLAs. |
+| Keycloak | Autenticação | Provedor de identidade externo (OAuth 2.1 / OIDC), desacoplando autenticação do código da aplicação e permitindo gestão centralizada de papéis. |
 
 ## Testes
 
@@ -24,7 +24,7 @@ Esse documento contempla a stack tecnológica selecionada dentro de cada uma das
 | --- | --- | --- |
 | Cypress | Testes E2E | Além de ser facilmente configurável, também é muito confiável e traz consigo a possibilidade de observar os testes diante de uma interface gráfica, dessa forma tornando eles muito mais palpáveis e verificáveis, levando em consideração a visão do usuário final. |
 | Testcontainers | Testes de integração | Permite que os testes de integração possuam determinadas configurações em cima de imagens Docker limpas (como uma imagem Postgres, por exemplo) e mantém o ciclo de vida diretamente ligado aos testes. |
-| Spring Test (JUnit 5 + Mockito) | Testes de unitários no backend | A ferramenta nativa de testes para o Spring, logo, não é necessário configurar e possui 100% de integração. |
+| Spring Test (JUnit 5 + Mockito) | Testes de unitários no backend | Ferramentas padrão para testes no ecossistema Spring, oferecendo 100% de integração direta sem necessidade de configurações complexas. Serão utilizadas para a criação de testes unitários rápidos e isolados de dependências externas, com foco principal em garantir a exatidão da lógica de cálculo de SLA. |
 | Jest | Testes unitários no frontend | Suporte oficial e excelente dentro do ecossistema Angular. |
 | k6 | Testes de carga | Ferramenta de teste de carga escolhida por permitir script versionado em JavaScript e execução em contêiner, alinhada à necessidade de comprovar a escalabilidade do microsserviço. |
 
@@ -41,8 +41,8 @@ Esse documento contempla a stack tecnológica selecionada dentro de cada uma das
 
 | Tech | Categoria | Justificativa |
 | --- | --- | --- |
-| Docker e Docker Compose | Infra e separação de ambientes | A utilização de Docker permite que uma imagem do sistema seja criada, tornando ele mais reproduzível e facilitando o deploy. Combinando com o Docker Compose, foi possível gerar três ambientes (development, tests e production) isolados e facilmente reproduzíveis em qualquer máquina. |
-| GitHub Actions | CI/CD | Decidimos utilizar o GitHub Actions por ser facilmente implementável e configurável, levando em consideração que estamos utilizando o GitHub para versionamento. |
+| Docker e Docker Compose | Infra e separação de ambientes | O empacotamento em contêineres é uma exigência do projeto para garantir a total reprodutibilidade do sistema e simplificar o processo de deploy. A combinação com o Docker Compose permite orquestrar todos os serviços dependentes de forma ágil, gerando três ambientes isolados (desenvolvimento, testes e produção) facilmente executáveis em qualquer máquina. |
+| GitHub Actions | CI/CD | Ferramenta escolhida por sua facilidade de configuração e integração nativa com o repositório do projeto. |
 | Vercel | Deploy Frontend | Serviço gratuito que integra diretamente com o GitHub sem necessitar de nenhuma configuração. |
 | A definir | Deploy Backend | — |
 | A definir | Deploy Microsserviço | — |
