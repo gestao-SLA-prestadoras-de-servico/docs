@@ -22,10 +22,10 @@ Esse documento contempla a stack tecnológica selecionada dentro de cada uma das
 
 | Tech | Categoria | Justificativa |
 | --- | --- | --- |
-| Cypress | Testes E2E | Além de ser facilmente configurável, também é muito confiável e traz consigo a possibilidade de observar os testes diante de uma interface gráfica, dessa forma tornando eles muito mais palpáveis e verificáveis, levando em consideração a visão do usuário final. |
+| Playwright | Testes E2E | Executa testes de forma nativamente paralelizada em múltiplos motores de navegadores reais (Chromium, Firefox e WebKit). Utiliza contextos isolados para evitar vazamento de estado entre os testes e possui espera automática (auto-waiting) nativa dos elementos renderizados, garantindo alta estabilidade na esteira de CI/CD. |
 | Testcontainers | Testes de integração | Permite que os testes de integração possuam determinadas configurações em cima de imagens Docker limpas (como uma imagem Postgres, por exemplo) e mantém o ciclo de vida diretamente ligado aos testes. |
 | Spring Test (JUnit 5 + Mockito) | Testes de unitários no backend | Ferramentas padrão para testes no ecossistema Spring, oferecendo 100% de integração direta sem necessidade de configurações complexas. Serão utilizadas para a criação de testes unitários rápidos e isolados de dependências externas, com foco principal em garantir a exatidão da lógica de cálculo de SLA. |
-| Jest | Testes unitários no frontend | Suporte oficial e excelente dentro do ecossistema Angular. |
+| Vitest | Testes unitários no frontend | Compartilha o ecossistema e o motor Vite com o Angular moderno, proporcionando execução e tempo de inicialização extremamente rápidos. Oferece Hot Module Replacement (HMR) para feedback instantâneo durante o desenvolvimento e possui suporte nativo a TypeScript sem exigir configurações complexas. |
 | k6 | Testes de carga | Ferramenta de teste de carga escolhida por permitir script versionado em JavaScript e execução em contêiner, alinhada à necessidade de comprovar a escalabilidade do microsserviço. |
 
 ## Microsserviço
@@ -43,9 +43,8 @@ Esse documento contempla a stack tecnológica selecionada dentro de cada uma das
 | --- | --- | --- |
 | Docker e Docker Compose | Infra e separação de ambientes | O empacotamento em contêineres é uma exigência do projeto para garantir a total reprodutibilidade do sistema e simplificar o processo de deploy. A combinação com o Docker Compose permite orquestrar todos os serviços dependentes de forma ágil, gerando três ambientes isolados (desenvolvimento, testes e produção) facilmente executáveis em qualquer máquina. |
 | GitHub Actions | CI/CD | Ferramenta escolhida por sua facilidade de configuração e integração nativa com o repositório do projeto. |
-| Vercel | Deploy Frontend | Serviço gratuito que integra diretamente com o GitHub sem necessitar de nenhuma configuração. |
-| A definir | Deploy Backend | — |
-| A definir | Deploy Microsserviço | — |
+| Vercel | Deploy Frontend | Serviço gratuito que integra diretamente com o repositório, garantindo um processo de deploy contínuo, seguro e com alta performance de entrega via CDN para a aplicação Angular. |
+| Oracle Cloud (Always Free) | Deploy Backend e Microsserviço | Serviço em nuvem que fornece instâncias ARM gratuitas com até 24 GB de RAM e 4 vCPUs. Essa alta capacidade é mandatória para orquestrar simultaneamente a API Backend Principal (Spring Boot), o Keycloak, o RabbitMQ, o MinIO e o PostgreSQL. Os núcleos de processamento adicionais garantem a capacidade de CPU necessária para as tarefas pesadas de transcodificação de vídeos do ms-evidencias, viabilizando uma arquitetura de nível corporativo a custo zero. |
 
 ## Observabilidade
 
